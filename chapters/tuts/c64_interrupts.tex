@@ -1,0 +1,117 @@
+\section{What's an interrupt?}
+Imagine you are painting your apartement - in the 20th floor. Since you have to be finished by tomorrow, you have asked three of your friends to come help you. But the problem is that you don't know exactly when each of them will show up. 
+\\
+Now, why is it a problem that you don't know exactly when they show up you may wonder? The door bell on the 1st floor is broken. So you constantly have to run down from the 20th floor, open the door, check for friends, run back up, paint 30 seconds, run down again to the 1st floor, open the door, check for friends, run back up, paint 30 seconds, run do..... ok! You get the point. The only thing you will be busy with is waiting. Ideally, you would like to start painting your apartement and just be INTERRUPTED when each of your friends ring the door bell. But since this interrupt mechanism is broken, you need to find another solution: the mobile phone.
+\\
+So, instead you call your friends and tell them to use their mobile phones to ring you when they are downstairs. In that way you can constantly keep painting, and be notified (INTERRUPTED) only when you friends are ready downstairs.
+\\
+What's this story do to with programming the C64 with TRSE? Well, of course this was just an analogy. But if we want to make smart and effective programs we need to have the 6510 CPU work at full speed - with real tasks - and only be interrupted when something important happens! And when the interrupt routine is completed the CPU goes back to the tasks it was interrupted from.
+\\
+Ok, let's gets started! 
+\\
+\subsection{Avoiding busy waits - our first simple interrupt routine}
+In the story above you see that it is possible to constantly run up and down to check for you friends, but it's not very effective. The same goes for the C64 - you can have the CPU to just sit and wait for something to happen (BUSY WAIT).  
+
+Let's look at an example. Below you find a small program that set the background color to black at line 0, and turn it to yellow at line 150. Copy and paste this sample into TRSE and run it!
+\begin{lstlisting}
+program BusyWait;
+var
+
+procedure MainLoop();
+begin
+	WaitForRaster(0);
+	SCREEN_BG_COL:=BLACK;
+	
+	WaitForRaster(150);
+	SCREEN_BG_COL:=YELLOW;
+end;
+
+begin
+	while(0<1) then begin
+		MainLoop();
+	end;
+end.
+\end{lstlisting}What is the problem with this program? It's switching from black to yellow? Well, the function WaitForRaster() prevents the CPU of doing anything else while waiting. In a real program you would like to do a lot of stuff while waiting for a rasterline such as calculating new sprite positions, moving a scrolltext, preparing a new screen in a different videobank etc. 
+
+Now, how would this program look if we would like to use interrupts instead? It would look like this: 
+\begin{lstlisting}
+program RasterInterrupt;
+var  
+	@define useKernal 0
+	
+interrupt InterruptRoutine02();
+
+interrupt InterruptRoutine01();
+begin
+	StartIRQ(@useKernal);
+	SCREEN_BG_COL:=BLACK;
+
+	RasterIRQ(InterruptRoutine02(),150,@useKernal);
+	
+	CloseIRQ();
+end;
+
+interrupt InterruptRoutine02();
+begin
+	StartIRQ(@useKernal);
+	SCREEN_BG_COL:=YELLOW;
+
+	RasterIRQ(InterruptRoutine01(),0,@useKernal);
+	
+	CloseIRQ();
+end;
+
+procedure MainLoop();
+begin
+	// Insert your program here
+end;
+
+
+begin
+	preventirq();
+	disableciainterrupts();
+	setmemoryconfig(1,@useKernal,0);
+	enablerasterirq();
+	rasterirq(InterruptRoutine01(),0,@useKernal);
+	enableirq();
+
+	while (0<1) then begin
+		MainLoop();
+	end;
+end.
+\end{lstlisting}
+First of all note this: the MainLoop() does NOTHING now! This means that you are now free to do anything you like in the MainLoop, and the background will still be colored black and yellow! The interrupts does this for you! 
+
+Lets's go trough the program and explain everything step-by-step!
+
+
+
+
+
+
+
+
+busy waits
+different types of interrupts
+needs to be masked
+
+
+
+
+
+
+broken = masked
+
+Types of interrupts on the C64 (NMI, BRK, CIA, VICs)
+
+KERNAL vs HW
+
+Basics of interrupts
+
+	- Trigger
+	- Interrupt routine
+	- Acknowledge
+	- Return
+
+Sample - VIC raster interrupt
+

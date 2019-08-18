@@ -1,0 +1,25 @@
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+I fondly remember playing around with my commodore 64 when I was a kid back in 1987. My father had just paid about 1500 NOK  (or about \$150) for a used specimen, which was quite a substantial amount of money in those days. He grudingly paid the price as an effort to stop my constant nagging about using his own BBC micro to play games. As I had no color screen, I was stuck using an old black \& white 12" monitor from the 1970s. 
+
+While I primarly had an interest in playing games, I soon discovered the possibility of creating my own game using BASIC. Using the excellent Commodore 64 User's manual, I quickly learned how to make bouncing balls, small text adventures and save games to disk. However, what I never could grasp, was those pesky "POKE"s and "PEEK"s and "DATA". My 8-year old mind was just not made to understand assembly language / machine hardware at that point. For several years, I made a string of smaller text/PETSCII-based games in BASIC, but never wrote a single line of assembler. 
+
+The Commodore 64 was slowly replaced by a successive row of IBM compatiblee PCs that I built and upgraded myself (8088, 80286 AT, 386 SX, 486 DX/2 etc), and I soon drifted into the demoscene on the PC. Here, I started to dabble in X86 assembly language, and soon discovered the excellent Turbo Pascal 5.5. My father once entered my bedroom whilst in an agitated state and threw me the user's guide for Turbo Pascal 5.5, all while saying "If you don't start learning object-oriented code, you're not my son anymore!".  While this story may or may not be entirely true, Turbo Pascal most certainly made a lasting impression on me: Combining object-oriented code (especially for 3D demo development) together with low-lever x86 assembler in a fast and efficient high-level language! During the 1990s, I created (and released) countless demoscene productions, from intros to demos and games - all made in Turbo (or Borland) Pascal.
+
+By the late 1990s, the landscape had shifted to 32-bit protected mode programming (such as Watcom C), and I myself had shifted to dabble in those silly things that young men are prone to do - girls and beer. By the early 2000s I was working in a corporate environment writing SQL queries and using .NET. After that, I disappeared into the black hole that is University Life. However, I continued to home my programming skills by writing several Unity assets, focusing on GPU \& procedural programming, but never anything in a professional level. And no demoscene activity whatsoever. 
+
+About two years ago (winter of 2017-2018), that all started to change. I happened to come upon The 8-bit guy's video named "The making of planet X2", a game that he had developed for the Commodore 64. I realised then that I had never actually understood anyting about the inner workings of the old breadbin - and 6502 assembly still seemed like a occult mystery to me. With renewed spirit (and perhaps some spirits), I decided to finally learn and master the basics of that old computer, a thing that had evaded me for nearly 40 years. 
+
+After having dabbled a couple of days with 6502 assembly language (displayed an image and moved some sprites), I was completely apalled by the tediousness of maintaining assembly language code. I hadn't learned about macros, so I typed everything out. Even clearing the screen required a ton of lines, and every time I came back to the code I had to spend a long time revisiting / remembering what was going on. 
+
+Being a very lazy guy, I decided to do what I do best: compartmentalize and hide away the details. When writing game logic, I don't want to dabble in hardware, as all the extra juggling prevents the creator to actually focus on what is important : the gameplay. There exist countless examples of technical masterpieces for these old computer systems, but very games have an advanced game logic, mostly because it is so tedious to implement in assembly language. 
+
+A -25 degrees celsius and at remote cabin somewhere in the middle of Norway, I started developing as small C++ program called "Fluff64" that would output a C64 image (+the assembly code to display it) from a .png file. In this same program, I added support for a small text editor where you could type some simple commands such as "ClearScreen" or "PrintText". But what about parameters for these scripts? Certainly, implementing "ClearScreen(3)" or "ClearScreen(RED)" was simple enough, but what about more advanced statements such as "ClearScreen(someVariable)" or even "ClearScreen(someVariable*2+1)"? So I grabbed myself a sixpack and started going through Ruslan Spivak's excellent tutorial on "How to build an interpreter" (https://ruslanspivak.com/lsbasi-part1/). 
+
+%Almost two years later, TRSE has become a massive beast that supports not only 
+
+
+\begin{flushright}
+	\textit{Nicolaas Groeneboom}
+\end{flushright}

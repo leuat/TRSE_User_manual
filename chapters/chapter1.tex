@@ -1,0 +1,63 @@
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
+\chapter{Introduction to C64 programming}
+\labch{intro}
+\section{Prerequisites}
+Before you start, there are a couple of things that we need to get out of the way. In order to learn how to program for the Commodore 64 (or any other old type of computer), you need a couple of things:
+\begin{itemize}
+\item Some time on your hand
+\item A willingless to learn
+\item Basic knowledge of computer stuff
+\item Having downloaded and set up Turbo Rascal SE  (\href{https://lemonspawn.com/turbo-rascal-syntax-error-expected-but-begin/turbo-rascal-se-tutorials/setup-and-introduction}), see section \ref{sec:installation}.
+\end{itemize}
+Having \textit{A basic knowledge of computer stuff} implies:
+\begin{itemize}
+\item You should know how bits and bytes, binary and hexadecimal representations work. If you don't, check out \href{https://computer.howstuffworks.com/bytes.htm} or google it. 
+\item You should have an basic understanding of how programming works, ideally you know some modern programming langauges (C\#/Python) etc
+\item Don't be afraid of experimenting with programs. This is how you learn: by first copying, then experiment and finally master. 
+\end{itemize}
+\subsection{The good \& the bad}
+The \textbf{bad news} is that you will be working on an old, slow microprocessor in a programming language with absolutely no advanced stuff, no structures, no object-oriented design. If your program crashes, the computer will freeze and you will manually have to debug using a monitor. No protected mode, direct access to all hardware at any time.
+
+\begin{minipage}{0.8\textwidth}
+The \textbf{good news} is that you will be working on an old, slow microprocessor in a programming language with absolutely no advanced stuff, no structures, and no object-oriented design. You will swiflty learn how to access the hardware directly, and finally be able to understand and master almost every single piece of the computer. Not because you are exceptionally smart, but rather because the C64 is so easy to understand. As soon as you have grasped the basics. Therefore, let's start with the basics!
+\end{minipage}
+\begin{minipage}{0.2\textwidth}
+\includegraphics[width=\linewidth]{images/trip/trip11.png}
+\end{minipage}
+
+\section{The Commodore 64}
+The Commodore 64 uses a MOS technologies 8-bit 6510 microprocessor (a variant of the 6502) clocked in at 0.985 MHz (PAL version). It has a 16 bit address register allowing for $2^16 = 65535 = \$FFFF = 64kb$ of memory, but actually has a bit more than this when ROM (read-only-memory) is included. The "GPU" (graphics chip) of the C64 is called the Video Interface Chip (VIC), and shares the same RAM/ROM as the C64. This means that the data feeding the signal that the VIC chip is producing is directly accessible by the CPU.
+
+When the computer starts up, the VIC screen points to memory address \$0400. When you run a TRSE program, the default memory location for the program is at \$800, but the BASIC is overloaded and told to execute your program (starting at \$810) instead. Let's create a TRSE program that changes a byte on the screen:
+\subsection{My First Program}
+\begin{lstlisting}
+program MostBasicProgram;
+begin
+	poke(^$0400,0,1);
+	Loop();
+end.
+\end{lstlisting}
+
+\begin{minipage}{0.2\textwidth}
+\includegraphics[width=\linewidth]{images/trip/trip12.png}
+\end{minipage}
+\begin{minipage}{0.8\textwidth}
+"Poke" means "Set byte at memory address". Poke(\^\$0400,0,1) therefore translates to "Set the value of memory address \$0400+0 to be "1". Then loop the program ad infinitum. Incidentally, \$0400 is the beginning of screen space, and therefore represents the character in the upper-left corner of the screen. Value "1" corresponds to the ROM screen character for "A".
+\end{minipage}
+
+\begin{minipage}{0.8\textwidth}
+The VIC addressing is somewhat skewed, since it can only access 16kb of ram. This means that the VIC address space is evenly divided into 4 "banks" on the c64: from \$0000-\$3FFF, \$4000-\$7FFF, \$8000-\$BFFF and finally \$C000-\$FFFF. When you tell the VIC chip to "use bank 2", what you are doing is telling it to access and use memory from \$8000-\$BFFF.
+\end{minipage}
+\begin{minipage}{0.2\textwidth}
+\includegraphics[width=\linewidth]{images/trip/trip7.png}
+\end{minipage}
+
+
+\section{TRSE Tutorials}
+\input{chapters/tuts/c64_helloworld.tex}
+\input{chapters/tuts/c64_texty.tex}
+\input{chapters/tuts/c64_boxes.tex}
+\input{chapters/tuts/c64_randomness.tex}
+\input{chapters/tuts/c64_plasma.tex}
+\input{chapters/tuts/c64_interrupts.tex}

@@ -1,0 +1,37 @@
+\subsection{Hello World}
+\begin{minipage}{0.8\textwidth}
+\begin{lstlisting}
+program HelloWorld;
+var  
+  	text : string = ("HELLO WORLD");
+
+begin
+	// Fill the screen (at screen_char_loc) with character $20 - "space"
+	ClearScreen($20, screen_char_loc);
+	// Fill the color ram with yellow
+	ClearScreen(yellow, screen_col_loc);
+	// Move cursor to x,y position 10,12
+	moveto(10,12,$04);
+	// Print the text
+	printstring(text,0,40);
+	// Move cursor 2 rows down (2*40)
+	screenmemory:=screenmemory+2*40;
+	// Print something else
+	printstring("THIS IS ANOTHER STRING",0,40);
+	// Infinite loop
+	Loop(); 
+end.
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{0.2\textwidth}
+\includegraphics[width=\linewidth]{images/trip/trip8.png}
+\end{minipage}
+
+\begin{minipage}{0.6\textwidth}
+\includegraphics{images/c64/01_helloworld.png}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+Lorem ipsum dolor sit amet, quo ex molestiae philosophia. Qui periculis sententiae comprehensam eu, audiam accusamus consequat eum no, no nam legimus placerat. Qui no dictas accusamus, no vim liberavisse instructior. Ius quaeque utroque tincidunt ei, his saperet consequat eu.
+\end{minipage}
+Te autem impetus ius, vel facer omnes mediocrem in. Timeam persius eligendi at sed, eu vitae noster latine vel. Liberavisse definitiones comprehensam te sea. Pri ne mollis expetenda, cum habeo quaestio maiestatis an. Ne vim senserit sapientem dissentiet. Et vis ceteros lucilius, ad aperiri argumentum vis.
+
